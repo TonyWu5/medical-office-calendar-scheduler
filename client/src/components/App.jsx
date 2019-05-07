@@ -11,6 +11,7 @@ class App extends React.Component {
       appointments: [],
       doctorFullName: '',
       doctorEmail: '',
+      selectedDoctorIndex: null
     };
     this.updateAppointmentsList = this.updateAppointmentsList.bind(this);
     this.handleDoctorNameClick = this.handleDoctorNameClick.bind(this);
@@ -46,8 +47,11 @@ class App extends React.Component {
   }
   
   handleDoctorNameClick(event) {
-    console.log(event.target);
-    const doctorIndex = (event.target.id);
+    const doctorIndex = Number(event.target.id);
+    this.setState({
+      selectedDoctorIndex: doctorIndex
+    });
+    // console.log(this.state.selectedDoctorIndex);
     this.updateAppointmentsList(doctorIndex);
     //TODO: NEED TO CHANGE COLOR OF CLICKED ITEM
   }
@@ -56,6 +60,7 @@ class App extends React.Component {
     return (
       <div>
         <DoctorsList doctors={this.state.doctors}
+          selectedDoctorIndex={this.state.selectedDoctorIndex}
           handleDoctorNameClick={this.handleDoctorNameClick}
           id='doctorsList' />
         <Appointments appointments={this.state.appointments}

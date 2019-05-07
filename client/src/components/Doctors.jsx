@@ -1,15 +1,15 @@
 import React from 'react';
 
 const Doctor = (props) => {
+  const classname = props.selectedDoctorIndex === props.index ? "selected-doctor" : "doctor-bullets";
   return (
-    <li className="doctor-bullets"
+    <li className={classname}
       onClick = {(e) => {props.handleDoctorNameClick(e)}}
       id={props.index}
       > {props.doctor.lastname}, {props.doctor.firstname}
     </li>
   );
 };
-  
   
 const DoctorsList = (props) => {
   return (
@@ -22,6 +22,7 @@ const DoctorsList = (props) => {
             <Doctor doctor={doctor}
             key={doctor.email}
             index={index}
+            selectedDoctorIndex={props.selectedDoctorIndex}
             handleDoctorNameClick={props.handleDoctorNameClick}
             />
           )
