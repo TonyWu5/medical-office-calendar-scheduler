@@ -23,7 +23,7 @@ const Appointments = (props) => {
         <tbody>
           {props.appointments.map((appointment, index) => {
             return (
-              <tr className='appointment-rows'
+              <tr className={'appointment-rows'+index%2}
               key={index+1}>
                 <td>{index+1}</td>
                 <td>{appointment.patient}</td>

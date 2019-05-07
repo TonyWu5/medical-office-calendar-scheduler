@@ -4,14 +4,15 @@ const Doctors = (props) => {
   const doctors = props.doctors;
   return (
     <div id='doctors-panel'>
-      <h1>notable</h1>
+      <h1 id='notable-logo'>notable</h1>
       <h3>PHYSICIANS</h3>
       <ul>
         {doctors.map((doctor, index) => {
           return (
             <li className="doctor-bullets"
             key={index}
-            onClick = {() => {props.updateAppointmentsList(index)}}
+            id={index}
+            onClick = {(e) => {props.handleDoctorNameClick(e)}}
             > {doctor.lastname}, {doctor.firstname} </li>
           );
         })}

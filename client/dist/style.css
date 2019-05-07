@@ -1,9 +1,41 @@
+* {
+  font-family: sans-serif
+}
+
 #doctors-panel {
-  width: 40%;
-  float: left
+  width: 250px;
+  height: 500px;
+  float: left;
+  background: rgb(250, 246, 246);
+  padding: 20px;
+  border: 2px solid rgb(223, 223, 228);
+  margin: 0px
 }
 
 #appointments-panel {
   width: 60%;
-  float: right
+  float: right;
+}
+
+#notable-logo {
+  color: rgb(0, 153, 255);
+  font-size: 225%;
+}
+
+.appointment-headers {
+  background: rgb(45, 122, 223);
+  color: white;
+}
+
+td {
+  padding: 5px 15px;
+  border-spacing: 100px;
+}
+
+.appointment-rows1 {
+  background: rgb(248, 242, 242)
+}
+
+.doctor-bullets.active {
+  background:red
 }
