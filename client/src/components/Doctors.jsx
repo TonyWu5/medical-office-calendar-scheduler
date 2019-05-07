@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Doctor = (props) => {
-  const classname = props.selectedDoctorIndex === props.index ? "selected-doctor" : "doctor-bullets";
+  const classname = props.selectedDoctorIndex === props.index ? "selected-doctor doctor-bullets" : "doctor-bullets";
   return (
     <li className={classname}
       onClick = {(e) => {props.handleDoctorNameClick(e)}}

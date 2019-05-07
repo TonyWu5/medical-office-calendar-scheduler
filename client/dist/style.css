@@ -1,5 +1,5 @@
 * {
-  font-family: sans-serif
+  font-family: sans-serif;
 }
 
 #doctors-panel {
@@ -35,6 +35,14 @@ td {
 .appointment-rows1 {
   background: rgb(248, 242, 242);
 }
+
+.doctor-bullets {
+  letter-spacing: 1px;
+  padding: 5px;
+  cursor: pointer;
+  list-style-type: circle;
+}
+
 
 .selected-doctor {
   background: rgb(45, 122, 223);
