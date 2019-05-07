@@ -1,0 +1,9 @@
+#doctors-panel {
+  width: 40%;
+  float: left
+}
+
+#appointments-panel {
+  width: 60%;
+  float: right
+}
