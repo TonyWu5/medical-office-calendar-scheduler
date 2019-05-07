@@ -1,6 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
-import Doctors from './Doctors.jsx';
+import DoctorsList from './Doctors.jsx';
 import Appointments from './Appointments.jsx';
 
 class App extends React.Component {
@@ -22,12 +22,13 @@ class App extends React.Component {
         this.setState({doctors: data});
       })
       .then(() => {
-        this.updateAppointmentsList(0); // retrieves appointment list of first doctor on list
+        this.updateAppointmentsList(0); // retrieves appointments of first doctor on list
       })
       .catch((err) => { throw err; });
   }
   
   updateAppointmentsList(index) {
+    // retrieves appointments of individual doctor based on index of clicked doctor
     const doctorID = this.state.doctors[index].id;
     const doctor = this.state.doctors[index];
     const {firstname, lastname, email} = doctor;
@@ -45,14 +46,16 @@ class App extends React.Component {
   }
   
   handleDoctorNameClick(event) {
+    console.log(event.target);
     const doctorIndex = (event.target.id);
     this.updateAppointmentsList(doctorIndex);
+    //TODO: NEED TO CHANGE COLOR OF CLICKED ITEM
   }
 
   render() {
     return (
       <div>
-        <Doctors doctors={this.state.doctors}
+        <DoctorsList doctors={this.state.doctors}
           handleDoctorNameClick={this.handleDoctorNameClick}
           id='doctorsList' />
         <Appointments appointments={this.state.appointments}

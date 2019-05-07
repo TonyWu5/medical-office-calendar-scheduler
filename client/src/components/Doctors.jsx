@@ -1,24 +1,34 @@
 import React from 'react';
 
-const Doctors = (props) => {
-  const doctors = props.doctors;
+const Doctor = (props) => {
+  return (
+    <li className="doctor-bullets"
+      onClick = {(e) => {props.handleDoctorNameClick(e)}}
+      id={props.index}
+      > {props.doctor.lastname}, {props.doctor.firstname}
+    </li>
+  );
+};
+  
+  
+const DoctorsList = (props) => {
   return (
     <div id='doctors-panel'>
       <h1 id='notable-logo'>notable</h1>
       <h3>PHYSICIANS</h3>
       <ul>
-        {doctors.map((doctor, index) => {
+        {props.doctors.map((doctor, index)=> {
           return (
-            <li className="doctor-bullets"
-            key={index}
-            id={index}
-            onClick = {(e) => {props.handleDoctorNameClick(e)}}
-            > {doctor.lastname}, {doctor.firstname} </li>
-          );
+            <Doctor doctor={doctor}
+            key={doctor.email}
+            index={index}
+            handleDoctorNameClick={props.handleDoctorNameClick}
+            />
+          )
         })}
       </ul>
     </div>
   );
 }
 
-export default Doctors;
+export default DoctorsList;
