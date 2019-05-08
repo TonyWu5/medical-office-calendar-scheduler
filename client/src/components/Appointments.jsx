@@ -1,7 +1,29 @@
 import React from 'react';
 
-const Appointments = (props) => {
+const AppointmentHeaders = () => {
+  return (
+    <tr className='appointment-headers'>
+      <th>#</th>
+      <th>Patient</th>
+      <th>Time</th>
+      <th>Kind</th>
+    </tr>
+  );
+}
+
+const AppointmentRows = (props) => {
   const timeformat = 'TIME_FORMAT(time, \'%h:%i%p\'\)'
+  return (
+    <tr className={'appointment-rows'+props.index%2}>
+      <td>{props.index+1}</td>
+      <td>{props.appointment.patient}</td>
+      <td>{props.appointment[timeformat]}</td>
+      <td>{props.appointment.kind}</td>
+    </tr>
+  )
+}
+
+const Appointments = (props) => {
   if (!props.appointments.length) {
     return (
       <h1>Please Select a Physician to View Calendar.</h1>
@@ -13,23 +35,12 @@ const Appointments = (props) => {
       <h3>{props.email}</h3>
       <table id='appointments-table'>
         <thead>
-          <tr className='appointment-headers'>
-            <th>#</th>
-            <th>Patient</th>
-            <th>Time</th>
-            <th>Kind</th>
-          </tr>
+          <AppointmentHeaders />
         </thead>
         <tbody>
           {props.appointments.map((appointment, index) => {
             return (
-              <tr className={'appointment-rows'+index%2}
-              key={index+1}>
-                <td>{index+1}</td>
-                <td>{appointment.patient}</td>
-                <td>{appointment[timeformat]}</td>
-                <td>{appointment.kind}</td>
-              </tr>
+              <AppointmentRows appointment={appointment} index={index} key={index} />
             );
           })}
         </tbody>

@@ -10,7 +10,7 @@ const Doctor = (props) => {
     </li>
   );
 };
-  
+
 const DoctorsList = (props) => {
   return (
     <div id='doctors-panel'>

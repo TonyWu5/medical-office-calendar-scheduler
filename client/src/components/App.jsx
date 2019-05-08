@@ -9,9 +9,8 @@ class App extends React.Component {
     this.state = {
       doctors: [],
       appointments: [],
-      doctorFullName: '',
-      doctorEmail: '',
-      selectedDoctorIndex: null
+      selectedDoctor:{},
+      selectedDoctorIndex: null,
     };
     this.updateAppointmentsList = this.updateAppointmentsList.bind(this);
     this.handleDoctorNameClick = this.handleDoctorNameClick.bind(this);
@@ -22,8 +21,8 @@ class App extends React.Component {
       .done((data) => {
         this.setState({doctors: data});
       })
-      .then(() => {
-        this.updateAppointmentsList(0); // retrieves appointments of first doctor on list
+      .then(() => { // retrieves appointments of first doctor on list
+        this.updateAppointmentsList(0);
       })
       .catch((err) => { throw err; });
   }
@@ -32,10 +31,8 @@ class App extends React.Component {
     // retrieves appointments of individual doctor based on index of clicked doctor
     const doctorID = this.state.doctors[index].id;
     const doctor = this.state.doctors[index];
-    const {firstname, lastname, email} = doctor;
     this.setState({
-      doctorFullName: `Dr. ${firstname} ${lastname}`,
-      doctorEmail: email
+      selectedDoctor: doctor,
     });
     fetch(`/appointments/${doctorID}`)
     .then((response) => {
@@ -49,14 +46,14 @@ class App extends React.Component {
   handleDoctorNameClick(event) {
     const doctorIndex = Number(event.target.id);
     this.setState({
-      selectedDoctorIndex: doctorIndex
+      selectedDoctorIndex: doctorIndex  // this enables conditional class-naming of doctor names for styling purpose
     });
-    // console.log(this.state.selectedDoctorIndex);
     this.updateAppointmentsList(doctorIndex);
-    //TODO: NEED TO CHANGE COLOR OF CLICKED ITEM
   }
 
   render() {
+    const {firstname, lastname, email} = this.state.selectedDoctor;
+    const doctorFullName = `Dr. ${firstname} ${lastname}`
     return (
       <div>
         <DoctorsList doctors={this.state.doctors}
@@ -64,8 +61,8 @@ class App extends React.Component {
           handleDoctorNameClick={this.handleDoctorNameClick}
           id='doctorsList' />
         <Appointments appointments={this.state.appointments}
-          doctor={this.state.doctorFullName}
-          email={this.state.doctorEmail} />
+          doctor={doctorFullName}
+          email={email} />
       </div>
     );
   }
