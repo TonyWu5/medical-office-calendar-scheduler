@@ -1,3 +1,7 @@
+/**
+ * using both AJAX and FETCH requests here
+ * to keep both methods logged for future ref
+ */
 import React from 'react';
 import $ from 'jquery';
 import DoctorsList from './Doctors.jsx';
