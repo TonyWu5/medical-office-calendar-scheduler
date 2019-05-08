@@ -43,11 +43,6 @@ const AppointmentRows = (props) => {
 
 
 const Appointments = (props) => {
-  if (!props.appointments.length) {
-    return (
-      <h1>Please Select a Physician to View Calendar.</h1>
-    )
-  }
   return (
     <div id='appointments-panel'>
       <h1>{props.doctor}</h1>
