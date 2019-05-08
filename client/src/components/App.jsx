@@ -29,18 +29,20 @@ class App extends React.Component {
   
   updateAppointmentsList(index) {
     // retrieves appointments of individual doctor based on index of clicked doctor
-    const doctorID = this.state.doctors[index].id;
-    const doctor = this.state.doctors[index];
-    this.setState({
-      selectedDoctor: doctor,
-    });
-    fetch(`/appointments/${doctorID}`)
-    .then((response) => {
-      return response.json(); // this returns a promise
-    })
-    .then((res) => {
-      this.setState({appointments: res});
-    })
+    if (this.state.doctors.length) {
+      const doctor = this.state.doctors[index];
+      const doctorID = doctor.id;
+      this.setState({
+        selectedDoctor: doctor,
+      });
+      fetch(`/appointments/${doctorID}`)
+      .then((response) => {
+        return response.json(); // this returns a promise
+      })
+      .then((res) => {
+        this.setState({appointments: res});
+      })
+    }
   }
   
   handleDoctorNameClick(event) {
