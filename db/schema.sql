@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS doctors (
 );
 
 CREATE TABLE IF NOT EXISTS appointments(
+  id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   doctorID INT NOT NULL,
   patient VARCHAR(20) NOT NULL,
   time TIME NOT NULL,
@@ -22,4 +23,14 @@ CREATE TABLE IF NOT EXISTS appointments(
 ALTER TABLE appointments
   ADD FOREIGN KEY appointments(doctorID)
   REFERENCES doctors(id);
-  
+
+-- prevent schedule conflict for doctor appointments  
+ALTER TABLE appointments
+  ADD CONSTRAINT unique_appt
+  UNIQUE KEY (doctorID, date, time);
+
+
+ALTER TABLE appointments
+  ADD INDEX date (date),
+  ADD INDEX patient (patient),
+  ADD INDEX kind (kind);

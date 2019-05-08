@@ -1,10 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { getDoctorsList, getAppointmentsList } = require('../db/dbMethods');
+const { getDoctorsList, getAppointmentsList, cancelAppointment } = require('../db/dbMethods');
 const app = express();
 const port = 3000;
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 
 app.use(express.static(__dirname + '/../client/dist'));
@@ -24,9 +24,18 @@ app.get('/appointments/:doctorID', (req, res) => {
   });
 });
 
+app.delete('/appointments', (req, res)=> {
+  const { appointmentID } = req.body;
+  cancelAppointment(appointmentID, (err, result) => {
+    if (err) res.send(err);
+    res.send(result);
+  })
+});
+
 app.post('/appointments', (req, res) => {
   
-})
+});
+
 
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

@@ -4,7 +4,9 @@ const Doctor = (props) => {
   const classname = props.selectedDoctorIndex === props.index ? "selected-doctor doctor-bullets" : "doctor-bullets";
   return (
     <li className={classname}
-      onClick = {(e) => {props.handleDoctorNameClick(e)}}
+      onClick = {(event) => {props.handleDoctorNameClick(event.target.id)
+      }}
+      //TODO: instead of using id tag, need to find a diff way to set unique index for Doctor
       id={props.index}
       > {props.doctor.lastname}, {props.doctor.firstname}
     </li>

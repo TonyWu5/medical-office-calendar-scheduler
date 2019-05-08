@@ -37,3 +37,5 @@ seedAppointments(2, appointment4);
 seedAppointments(1, appointment5);
 seedAppointments(1, appointment6);
 seedAppointments(3, appointment7);
+
+setTimeout(() => process.exit(), 10000);

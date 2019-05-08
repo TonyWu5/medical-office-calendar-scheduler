@@ -47,3 +47,8 @@ td {
 .selected-doctor {
   background: rgb(45, 122, 223);
 }
+
+.cancel-button {
+  background: rgb(45, 122, 223);
+  color: white;
+}

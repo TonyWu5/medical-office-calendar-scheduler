@@ -8,14 +8,6 @@ const addDoctor = (firstname, lastname, email) => {
   });
 }
 
-const makeAppointment = (doctorID, patientName, time, kind, date) => {
-  query = `INSERT INTO appointments (doctorID, patient, time, kind, date) VALUES ('${doctorID}', '${patientName}', '${time}', '${kind}', '${date}')`;
-  db.query(query, (err, result) => {
-    if (err) throw err;
-    console.log('appointments made');
-  });
-}
-
 const getDoctorsList = (callback) => {
   query = 'SELECT * FROM doctors';
   db.query(query, (err, result) => {
@@ -24,12 +16,34 @@ const getDoctorsList = (callback) => {
   });
 }
 
+const makeAppointment = (doctorID, patientName, time, kind, date) => {
+  query = `INSERT INTO appointments (doctorID, patient, time, kind, date) VALUES ('${doctorID}', '${patientName}', '${time}', '${kind}', '${date}')`;
+  db.query(query, (err, result) => {
+    if (err) throw err;
+    console.log('appointment made');
+  });
+}
+
+const cancelAppointment = (appointmentID, callback) => {
+  query = `DELETE FROM appointments WHERE id=${appointmentID}`;
+  db.query(query, (err, result) => {
+    if (err) throw err;
+    callback(null, result);
+  });
+}
+
+
 const getAppointmentsList = (doctorID, callback) => {
-  query = `SELECT patient, TIME_FORMAT(time, '%h:%i%p'), kind FROM appointments where doctorId=${doctorID}`;
+  query = `SELECT id, patient, TIME_FORMAT(time, '%h:%i%p'), kind FROM appointments where doctorId=${doctorID}`;
   db.query(query, (err, result) => {
     if (err) callback(err);
     callback(null, result);
   });
 }
 
-module.exports = { addDoctor, makeAppointment, getDoctorsList, getAppointmentsList };
+module.exports = {
+  addDoctor,
+  getDoctorsList,
+  makeAppointment,
+  cancelAppointment,
+  getAppointmentsList };

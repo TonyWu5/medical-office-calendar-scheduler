@@ -7,7 +7,19 @@ const AppointmentHeaders = () => {
       <th>Patient</th>
       <th>Time</th>
       <th>Kind</th>
+      <th>Cancel</th>
     </tr>
+  );
+}
+
+const CancelAppointmentButton = (props) => {
+  return (
+    <button
+    type='button'
+    className='cancel-button'
+    id={props.index}
+    testname='test' // onClick console.logging of this attribute returns undefined
+    onClick = {(event) => props.handleCancellation(event.target.id)}> X </button>
   );
 }
 
@@ -19,9 +31,16 @@ const AppointmentRows = (props) => {
       <td>{props.appointment.patient}</td>
       <td>{props.appointment[timeformat]}</td>
       <td>{props.appointment.kind}</td>
+      <td>
+        <CancelAppointmentButton
+          index={props.index}
+          handleCancellation={props.handleCancellation}
+          />
+      </td>
     </tr>
   )
 }
+
 
 const Appointments = (props) => {
   if (!props.appointments.length) {
@@ -40,7 +59,12 @@ const Appointments = (props) => {
         <tbody>
           {props.appointments.map((appointment, index) => {
             return (
-              <AppointmentRows appointment={appointment} index={index} key={index} />
+              <AppointmentRows
+                appointment={appointment}
+                index={index}
+                key={index}
+                handleCancellation={props.handleCancellation}
+                />
             );
           })}
         </tbody>

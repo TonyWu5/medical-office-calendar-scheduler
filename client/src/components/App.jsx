@@ -18,6 +18,7 @@ class App extends React.Component {
     };
     this.updateAppointmentsList = this.updateAppointmentsList.bind(this);
     this.handleDoctorNameClick = this.handleDoctorNameClick.bind(this);
+    this.handleCancellation = this.handleCancellation.bind(this);
   }
 
   componentDidMount() {
@@ -31,10 +32,10 @@ class App extends React.Component {
       .catch((err) => { throw err; });
   }
   
-  updateAppointmentsList(index) {
+  updateAppointmentsList(docIndex) {
     // retrieves appointments of individual doctor based on index of clicked doctor
     if (this.state.doctors.length) {
-      const doctor = this.state.doctors[index];
+      const doctor = this.state.doctors[docIndex];
       const doctorID = doctor.id;
       this.setState({
         selectedDoctor: doctor,
@@ -43,18 +44,41 @@ class App extends React.Component {
       .then((response) => {
         return response.json(); // this returns a promise
       })
-      .then((res) => {
-        this.setState({appointments: res});
+      .then((data) => {
+        this.setState({appointments: data});
       })
     }
   }
   
-  handleDoctorNameClick(event) {
-    const doctorIndex = Number(event.target.id);
+  handleDoctorNameClick(clickedDoctorIndex) {
+    const selectedDoctorIndex = Number(clickedDoctorIndex);
     this.setState({
-      selectedDoctorIndex: doctorIndex  // this enables conditional class-naming of doctor names for styling purpose
+      selectedDoctorIndex  // this enables conditional class-naming of doctor names for styling purpose
     });
-    this.updateAppointmentsList(doctorIndex);
+    this.updateAppointmentsList(selectedDoctorIndex);
+  }
+
+  handleCancellation(appointmentIndex) {
+    const appointment = this.state.appointments[appointmentIndex];
+    const appointmentID = appointment.id;
+
+    fetch('/appointments', {
+      method: 'DELETE',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({appointmentID}) //data must be sent as JSON object
+    })
+    .then((res) => {
+      if (res.status === 200) {
+        this.updateAppointmentsList(this.state.selectedDoctorIndex);
+        console.log('Appointment Canceled');
+        // TODO: handle appointment cancellation confirmation
+      };
+    })
+    .catch((error) => {
+      console.log('unable to cancel appointment');
+    })
   }
 
   render() {
@@ -65,10 +89,12 @@ class App extends React.Component {
         <DoctorsList doctors={this.state.doctors}
           selectedDoctorIndex={this.state.selectedDoctorIndex}
           handleDoctorNameClick={this.handleDoctorNameClick}
-          id='doctorsList' />
+          />
         <Appointments appointments={this.state.appointments}
           doctor={doctorFullName}
-          email={email} />
+          email={email}
+          handleCancellation={this.handleCancellation}
+          />
       </div>
     );
   }
