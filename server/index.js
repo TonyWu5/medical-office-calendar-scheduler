@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../client/dist'));
 
 app.get('/doctors', (req, res) => {
-  getDoctorsList( (err, result) => {
+  getDoctorsList((err, result) => {
     if (err) {
       res.status(400).send(err.code);
     } else {

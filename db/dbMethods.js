@@ -1,6 +1,6 @@
 const db = require('./index.js');
 
-const addDoctor = (firstname, lastname, email) => {
+const addDoctor = (firstname, lastname, email, callback) => {
   query = `INSERT INTO doctors (firstname, lastname, email) VALUES ('${firstname}', '${lastname}', '${email}')`;
   db.query(query, (err, result) => {
     if (err) {

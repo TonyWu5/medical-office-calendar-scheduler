@@ -1,7 +1,13 @@
 const {addDoctor, makeAppointment} = require('./dbMethods');
 
 const seedDoctors = (doctorInfo) => {
-  addDoctor(doctorInfo[0], doctorInfo[1], doctorInfo[2]);
+  addDoctor(doctorInfo[0], doctorInfo[1], doctorInfo[2], (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('added doctor');
+    }
+  });
 }
 
 const seedAppointments = (doctorID, appointmentInfo) => {
@@ -9,7 +15,15 @@ const seedAppointments = (doctorID, appointmentInfo) => {
     appointmentInfo[0],
     appointmentInfo[1],
     appointmentInfo[2],
-    appointmentInfo[3]);
+    appointmentInfo[3],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log('added appointment');
+      }
+    }
+  );
 }
 
 const doctor1 = ['Derek', 'Shepherd', 'shepherd@seattlegrace.com'];
@@ -38,4 +52,4 @@ seedAppointments(1, appointment5);
 seedAppointments(1, appointment6);
 seedAppointments(3, appointment7);
 
-setTimeout(() => process.exit(), 10000);
+setTimeout(() => process.exit(), 5000);
