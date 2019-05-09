@@ -1,9 +1,9 @@
 * {
-  font-family: sans-serif;
+  font-family: 'Helvetica Neue';
 }
 
 #doctors-panel {
-  width: 250px;
+  width: 225px;
   height: 500px;
   float: left;
   background: rgb(250, 246, 246);
@@ -13,11 +13,13 @@
 }
 
 #appointments-panel {
-  width: 60%;
-  float: right;
+  width: 500px;
+  height: 500px;
+  float: left;
+  margin: 20px;
 }
 
-#notable-logo {
+#logo {
   color: rgb(0, 153, 255);
   font-size: 225%;
 }
@@ -51,4 +53,36 @@ td {
 .cancel-button {
   background: rgb(45, 122, 223);
   color: white;
+}
+
+.patient-col, .kind-col {
+  width: 120px
+}
+.time-col {
+  width: 75px;
+}
+
+#make-appointment-button {
+  position: relative;
+  bottom: -50%;
+  display: block;
+  margin: auto;
+  padding: 10px;
+  width: 200px;
+  background: rgb(45, 122, 223);
+  color: white;
+}
+
+#submit-appointment-button {
+  position: relative;
+  bottom: -50%;
+  display: block;
+  margin: auto;
+  padding: 10px;
+  width: 200px;
+  background: rgb(45, 122, 223);
+  color: white;
+}
+.hidden {
+  visibility: hidden;
 }

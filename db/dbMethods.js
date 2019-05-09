@@ -3,8 +3,8 @@ const db = require('./index.js');
 const addDoctor = (firstname, lastname, email) => {
   query = `INSERT INTO doctors (firstname, lastname, email) VALUES ('${firstname}', '${lastname}', '${email}')`;
   db.query(query, (err, result) => {
-    if (err) throw err;
-    console.log('doctor added');
+    if (err) callback(err);
+    callback(result);
   });
 }
 
@@ -16,18 +16,18 @@ const getDoctorsList = (callback) => {
   });
 }
 
-const makeAppointment = (doctorID, patientName, time, kind, date) => {
+const makeAppointment = (doctorID, patientName, time, kind, date, callback) => {
   query = `INSERT INTO appointments (doctorID, patient, time, kind, date) VALUES ('${doctorID}', '${patientName}', '${time}', '${kind}', '${date}')`;
   db.query(query, (err, result) => {
-    if (err) throw err;
-    console.log('appointment made');
+    if (err) callback(err);
+    callback(null, result);
   });
 }
 
 const cancelAppointment = (appointmentID, callback) => {
   query = `DELETE FROM appointments WHERE id=${appointmentID}`;
   db.query(query, (err, result) => {
-    if (err) throw err;
+    if (err) callback(err);
     callback(null, result);
   });
 }
@@ -46,4 +46,5 @@ module.exports = {
   getDoctorsList,
   makeAppointment,
   cancelAppointment,
-  getAppointmentsList };
+  getAppointmentsList
+};

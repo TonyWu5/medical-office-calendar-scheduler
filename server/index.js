@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { getDoctorsList, getAppointmentsList, cancelAppointment } = require('../db/dbMethods');
+const { getDoctorsList, getAppointmentsList, cancelAppointment, makeAppointment } = require('../db/dbMethods');
 const app = express();
 const port = 3000;
 
@@ -33,9 +33,11 @@ app.delete('/appointments', (req, res)=> {
 });
 
 app.post('/appointments', (req, res) => {
-  
+  const {doctorID, patient, time, kind, date} = req.body;
+  makeAppointment(doctorID, patient, time, kind, date, (err, result) => {
+    if (err) res.send(err);
+    res.send(null, result);
+  })
 });
-
-
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

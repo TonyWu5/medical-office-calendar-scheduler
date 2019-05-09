@@ -16,7 +16,7 @@ const Doctor = (props) => {
 const DoctorsList = (props) => {
   return (
     <div id='doctors-panel'>
-      <h1 id='notable-logo'>notable</h1>
+      <h1 id='logo'> Seattle Grace</h1>
       <h3>PHYSICIANS</h3>
       <ul>
         {props.doctors.map((doctor, index)=> {

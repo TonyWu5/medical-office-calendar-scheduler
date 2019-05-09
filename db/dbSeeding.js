@@ -12,19 +12,19 @@ const seedAppointments = (doctorID, appointmentInfo) => {
     appointmentInfo[3]);
 }
 
-const doctor1 = ['Julius', 'Hibbert', 'hibbert@notablehealth.com'];
-const doctor2 = ['Algernop', 'Krieger', 'krieger@notablehealth.com'];
-const doctor3 = ['Nick', 'Riviera', 'riviera@notablehealth.com'];
+const doctor1 = ['Derek', 'Shepherd', 'shepherd@seattlegrace.com'];
+const doctor2 = ['Meredith', 'Grey', 'grey@seattlegrace.com'];
+const doctor3 = ['Cristina', 'Yang', 'yang@seattlegrace.com'];
 
-const appointment1 = ['Sterling Archer', '8:00:00', 'New Patient', '2019-12-12'];
-const appointment2 = ['Cyril Figis', '8:30:00', 'Follow-up', '2019-12-12'];
+const appointment1 = ['Steph Marcher', '8:00:00', 'New Patient', '2019-12-12'];
+const appointment2 = ['Cyril Fungus', '8:30:00', 'Follow-up', '2019-12-12'];
 const appointment3 = ['Lana Kane', '9:00:00', 'Follow-up', '2019-12-12'];
-const appointment4 = ['Pam Poovey', '10:00:00', 'New Patient', '2019-12-12'];
+const appointment4 = ['Pam White', '10:00:00', 'New Patient', '2019-12-12'];
 
 const appointment5 = ['John Smith', '13:00:00', 'New Patient', '2019-12-12'];
 const appointment6 = ['Jane Doe', '15:00:00', 'Follow-up', '2019-12-12'];
 
-const appointment7 = ['Tony Wu', '10:00:00', 'New Patient', '2019-12-12'];
+const appointment7 = ['Richard Roe', '10:00:00', 'New Patient', '2019-12-12'];
 
 seedDoctors(doctor1);
 seedDoctors(doctor2);

@@ -1,4 +1,5 @@
 import React from 'react';
+import { MakeAppointmentButton, AppointmentScheduler } from './NewAppointment.jsx';
 
 const AppointmentHeaders = () => {
   return (
@@ -27,10 +28,10 @@ const AppointmentRows = (props) => {
   const timeformat = 'TIME_FORMAT(time, \'%h:%i%p\'\)'
   return (
     <tr className={'appointment-rows'+props.index%2}>
-      <td>{props.index+1}</td>
-      <td>{props.appointment.patient}</td>
-      <td>{props.appointment[timeformat]}</td>
-      <td>{props.appointment.kind}</td>
+      <td className='num'>{props.index+1}</td>
+      <td className='patient-col'>{props.appointment.patient}</td>
+      <td className='time-col'>{props.appointment[timeformat]}</td>
+      <td className='kind-col'>{props.appointment.kind}</td>
       <td>
         <CancelAppointmentButton
           index={props.index}
@@ -40,7 +41,6 @@ const AppointmentRows = (props) => {
     </tr>
   )
 }
-
 
 const Appointments = (props) => {
   return (
@@ -64,6 +64,14 @@ const Appointments = (props) => {
           })}
         </tbody>
       </table>
+      <MakeAppointmentButton
+      handleNewAppointmentButtonClick={props.handleNewAppointmentButtonClick}
+      displayMakeAppointmentButton={props.displayMakeAppointmentButton} />
+
+      <AppointmentScheduler
+      displayAppointmentScheduler={!props.displayMakeAppointmentButton}
+      handleNewAppointmentSubmission={props.handleNewAppointmentSubmission}
+      />
     </div>
   );
 }

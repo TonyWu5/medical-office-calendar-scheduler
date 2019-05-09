@@ -15,10 +15,13 @@ class App extends React.Component {
       appointments: [],
       selectedDoctor:{},
       selectedDoctorIndex: null,
+      displayMakeAppointmentButton: false
     };
     this.updateAppointmentsList = this.updateAppointmentsList.bind(this);
     this.handleDoctorNameClick = this.handleDoctorNameClick.bind(this);
+    this.handleNewAppointmentButtonClick = this.handleNewAppointmentButtonClick.bind(this);
     this.handleCancellation = this.handleCancellation.bind(this);
+    this.handleNewAppointmentSubmission = this.handleNewAppointmentSubmission.bind(this);
   }
 
   componentDidMount() {
@@ -40,10 +43,11 @@ class App extends React.Component {
     const doctorID = doctor.id;
     this.setState({
       selectedDoctor: doctor,
+      displayMakeAppointmentButton: true
     });
     fetch(`/appointments/${doctorID}`)
-    .then((response) => {
-      return response.json(); // this returns a promise
+    .then((res) => {
+      return res.json(); // this returns a promise
     })
     .then((data) => {
       this.setState({appointments: data});
@@ -58,10 +62,38 @@ class App extends React.Component {
     this.updateAppointmentsList(selectedDoctorIndex);
   }
 
+  handleNewAppointmentButtonClick() {
+    this.setState({displayMakeAppointmentButton: false});
+  }
+
+  handleNewAppointmentSubmission(event, patient, time, kind, date) {
+    event.preventDefault();
+    const doctorID = this.state.selectedDoctor.id;
+    fetch('/appointments', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({doctorID, patient, time, kind, date})
+    })
+    .then((res) => {
+      console.log(res)
+      if (res.status === 200) {
+        console.log('appointment has been added')
+        this.updateAppointmentsList(this.state.selectedDoctorIndex);
+      }
+    })
+    .catch((err) => {
+      throw err;
+    })
+    // .then(() => {
+    //   this.setState()
+    // })
+  }
+
   handleCancellation(appointmentIndex) {
     const appointment = this.state.appointments[appointmentIndex];
     const appointmentID = appointment.id;
-
     fetch('/appointments', {
       method: 'DELETE',
       headers: {
@@ -94,6 +126,9 @@ class App extends React.Component {
           doctor={doctorFullName}
           email={email}
           handleCancellation={this.handleCancellation}
+          handleNewAppointmentButtonClick={this.handleNewAppointmentButtonClick}
+          displayMakeAppointmentButton={this.state.displayMakeAppointmentButton}
+          handleNewAppointmentSubmission={this.handleNewAppointmentSubmission}
           />
       </div>
     );
