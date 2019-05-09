@@ -4,11 +4,13 @@ const Doctor = (props) => {
   const classname = props.selectedDoctorIndex === props.index ? "selected-doctor doctor-bullets" : "doctor-bullets";
   return (
     <li className={classname}
-      onClick = {(event) => {props.handleDoctorNameClick(event.target.id)
+      onClick = {(event) =>
+        {props.handleDoctorNameClick(event.target.id)
       }}
       //TODO: instead of using id tag, need to find a diff way to set unique index for Doctor
       id={props.index}
-      > {props.doctor.lastname}, {props.doctor.firstname}
+    >
+      {props.doctor.lastname}, {props.doctor.firstname}
     </li>
   );
 };
@@ -22,12 +24,12 @@ const DoctorsList = (props) => {
         {props.doctors.map((doctor, index)=> {
           return (
             <Doctor doctor={doctor}
-            key={doctor.email}
-            index={index}
-            selectedDoctorIndex={props.selectedDoctorIndex}
-            handleDoctorNameClick={props.handleDoctorNameClick}
+              key={doctor.email}
+              index={index}
+              selectedDoctorIndex={props.selectedDoctorIndex}
+              handleDoctorNameClick={props.handleDoctorNameClick}
             />
-          )
+          );
         })}
       </ul>
     </div>

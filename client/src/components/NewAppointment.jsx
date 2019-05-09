@@ -29,7 +29,6 @@ class AppointmentScheduler extends React.Component {
   }
 
   handleAppointmentSubmission(event) {
-    console.log(event);
     this.props.handleNewAppointmentSubmission(patient, time, kind, date);
     event.preventDefault();
   }

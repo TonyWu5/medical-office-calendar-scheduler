@@ -3,13 +3,15 @@ import { MakeAppointmentButton, AppointmentScheduler } from './NewAppointment.js
 
 const AppointmentHeaders = () => {
   return (
-    <tr className='appointment-headers'>
-      <th>#</th>
-      <th>Patient</th>
-      <th>Time</th>
-      <th>Kind</th>
-      <th>Cancel</th>
-    </tr>
+    <thead>
+      <tr className='appointment-headers'>
+        <th>#</th>
+        <th>Patient</th>
+        <th>Time</th>
+        <th>Kind</th>
+        <th>Cancel</th>
+      </tr>
+    </thead>
   );
 }
 
@@ -48,9 +50,7 @@ const Appointments = (props) => {
       <h1>{props.doctor}</h1>
       <h3>{props.email}</h3>
       <table id='appointments-table'>
-        <thead>
-          <AppointmentHeaders />
-        </thead>
+        <AppointmentHeaders />
         <tbody>
           {props.appointments.map((appointment, index) => {
             return (

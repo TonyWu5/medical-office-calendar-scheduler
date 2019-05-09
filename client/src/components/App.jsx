@@ -1,9 +1,4 @@
-/**
- * using both AJAX and FETCH requests here
- * to keep both methods logged for future ref
- */
 import React from 'react';
-import $ from 'jquery';
 import DoctorsList from './Doctors.jsx';
 import Appointments from './Appointments.jsx';
 
@@ -13,7 +8,7 @@ class App extends React.Component {
     this.state = {
       doctors: [],
       appointments: [],
-      selectedDoctor:{},
+      selectedDoctor: {},
       selectedDoctorIndex: null,
       displayMakeAppointmentButton: false
     };
@@ -25,8 +20,11 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    $.ajax('/doctors')
-      .done((data) => {
+    fetch('/doctors')
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
         this.setState({doctors: data});
       })
       .then(() => { // retrieves appointments of first doctor on list
@@ -51,7 +49,7 @@ class App extends React.Component {
     })
     .then((data) => {
       this.setState({appointments: data});
-    })
+    });
   }
   
   handleDoctorNameClick(clickedDoctorIndex) {
@@ -77,18 +75,13 @@ class App extends React.Component {
       body: JSON.stringify({doctorID, patient, time, kind, date})
     })
     .then((res) => {
-      console.log(res)
       if (res.status === 200) {
-        console.log('appointment has been added')
         this.updateAppointmentsList(this.state.selectedDoctorIndex);
       }
     })
     .catch((err) => {
       throw err;
     })
-    // .then(() => {
-    //   this.setState()
-    // })
   }
 
   handleCancellation(appointmentIndex) {
@@ -104,12 +97,10 @@ class App extends React.Component {
     .then((res) => {
       if (res.status === 200) {
         this.updateAppointmentsList(this.state.selectedDoctorIndex);
-        console.log('Appointment Canceled');
-        // TODO: handle appointment cancellation confirmation
       };
     })
-    .catch((error) => {
-      console.log('unable to cancel appointment');
+    .catch((err) => {
+      throw err;
     })
   }
 
@@ -118,18 +109,20 @@ class App extends React.Component {
     const doctorFullName = `Dr. ${firstname} ${lastname}`
     return (
       <div>
-        <DoctorsList doctors={this.state.doctors}
+        <DoctorsList
+          doctors={this.state.doctors}
           selectedDoctorIndex={this.state.selectedDoctorIndex}
           handleDoctorNameClick={this.handleDoctorNameClick}
-          />
-        <Appointments appointments={this.state.appointments}
+        />
+        <Appointments
+          appointments={this.state.appointments}
           doctor={doctorFullName}
           email={email}
           handleCancellation={this.handleCancellation}
           handleNewAppointmentButtonClick={this.handleNewAppointmentButtonClick}
           displayMakeAppointmentButton={this.state.displayMakeAppointmentButton}
           handleNewAppointmentSubmission={this.handleNewAppointmentSubmission}
-          />
+        />
       </div>
     );
   }
