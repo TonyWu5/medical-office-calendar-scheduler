@@ -9,6 +9,9 @@ app.use(bodyParser.json());
 
 app.use(express.static(__dirname + '/../client/dist'));
 
+/**
+ * Would recommend you also send the status code as a good practice. 
+ */
 app.get('/doctors', (req, res) => {
   getDoctorsList( (err, result) => {
     if (err) { throw err}
@@ -16,6 +19,11 @@ app.get('/doctors', (req, res) => {
   });
 });
 
+/**
+ * General speaking you want to move this to a post request 
+ * when you have an endpoint like /appointments/:id it usually 
+ * means you want to get the specific id. 
+ */
 app.get('/appointments/:doctorID', (req, res) => {
   const id = req.params.doctorID;
   getAppointmentsList(id, (err, result) => {

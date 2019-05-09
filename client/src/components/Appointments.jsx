@@ -1,5 +1,6 @@
 import React from 'react';
 
+/** Include the thead  */
 const AppointmentHeaders = () => {
   return (
     <tr className='appointment-headers'>

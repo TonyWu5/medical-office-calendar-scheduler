@@ -1,5 +1,11 @@
 const db = require('./index.js');
 
+/**
+ * I recommend that you change your parameter that you're passing in to as a single object. 
+ * That way it's much easier to manage the data and reduce the possibility of missing 
+ * parameters. And then do something like this.
+ * const addDoctor = ({firstName, lastName, email}) => { ... }
+ */
 const addDoctor = (firstname, lastname, email) => {
   query = `INSERT INTO doctors (firstname, lastname, email) VALUES ('${firstname}', '${lastname}', '${email}')`;
   db.query(query, (err, result) => {
@@ -24,6 +30,10 @@ const makeAppointment = (doctorID, patientName, time, kind, date) => {
   });
 }
 
+/**
+ * Rather than just a throw an error I would recommend you also pass back the error 
+ * into the return that way it'll be easier to generate specific error messages. 
+ */
 const cancelAppointment = (appointmentID, callback) => {
   query = `DELETE FROM appointments WHERE id=${appointmentID}`;
   db.query(query, (err, result) => {
@@ -46,4 +56,5 @@ module.exports = {
   getDoctorsList,
   makeAppointment,
   cancelAppointment,
-  getAppointmentsList };
+  getAppointmentsList 
+};

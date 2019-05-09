@@ -13,7 +13,7 @@ class App extends React.Component {
     this.state = {
       doctors: [],
       appointments: [],
-      selectedDoctor:{},
+      selectedDoctor: {},
       selectedDoctorIndex: null,
     };
     this.updateAppointmentsList = this.updateAppointmentsList.bind(this);
@@ -21,6 +21,9 @@ class App extends React.Component {
     this.handleCancellation = this.handleCancellation.bind(this);
   }
 
+  //Maintain consistency. I would recommend sticking with fetch and not jQuery.
+  //Also from my undersatnding the done only applies to ajax and then only applies to promises. 
+  //however ajax is not a promise. People rarely ever use AJAX in React these days. 
   componentDidMount() {
     $.ajax('/doctors')
       .done((data) => {
@@ -42,12 +45,12 @@ class App extends React.Component {
       selectedDoctor: doctor,
     });
     fetch(`/appointments/${doctorID}`)
-    .then((response) => {
-      return response.json(); // this returns a promise
-    })
-    .then((data) => {
-      this.setState({appointments: data});
-    })
+      .then((response) => {
+        return response.json(); // this returns a promise
+      })
+      .then((data) => {
+        this.setState({appointments: data});
+      });
   }
   
   handleDoctorNameClick(clickedDoctorIndex) {
@@ -86,15 +89,17 @@ class App extends React.Component {
     const doctorFullName = `Dr. ${firstname} ${lastname}`
     return (
       <div>
-        <DoctorsList doctors={this.state.doctors}
+        <DoctorsList 
+          doctors={this.state.doctors}
           selectedDoctorIndex={this.state.selectedDoctorIndex}
           handleDoctorNameClick={this.handleDoctorNameClick}
-          />
-        <Appointments appointments={this.state.appointments}
+        />
+        <Appointments 
+          appointments={this.state.appointments}
           doctor={doctorFullName}
           email={email}
           handleCancellation={this.handleCancellation}
-          />
+        />
       </div>
     );
   }
