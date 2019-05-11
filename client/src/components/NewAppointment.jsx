@@ -28,17 +28,12 @@ class AppointmentScheduler extends React.Component {
     })
   }
 
-  handleAppointmentSubmission(event) {
-    this.props.handleNewAppointmentSubmission(patient, time, kind, date);
-    event.preventDefault();
-  }
-
   render() {
     const {patient, time, kind, date} = this.state;
     const classname = this.props.displayAppointmentScheduler ? 'displayed' : 'hidden';
     return(
       <div id='appointment-scheduler' className={classname}>
-        <form>
+        <form onSubmit={() => this.props.handleNewAppointmentSubmission(event, patient, time, kind, date)}>
           <fieldset>
             <legend>New Appointment Information:</legend>
             Patient (first last):<br/>
@@ -69,7 +64,6 @@ class AppointmentScheduler extends React.Component {
             id='submit-appointment-button'
             type="submit"
             value="Submit"
-            onClick={() => this.props.handleNewAppointmentSubmission(event, patient, time, kind, date)}
             />
           </fieldset>
         </form>

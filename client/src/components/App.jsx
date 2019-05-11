@@ -25,7 +25,10 @@ class App extends React.Component {
         return res.json();
       })
       .then((data) => {
-        this.setState({doctors: data});
+        this.setState({
+          doctors: data,
+          selectedDoctorIndex: 0
+        });
       })
       .then(() => { // retrieves appointments of first doctor on list
         if (this.state.doctors.length) {
@@ -72,7 +75,7 @@ class App extends React.Component {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({doctorID, patient, time, kind, date})
+      body: JSON.stringify({doctorID, patient, time, kind, date}) //data must be sent as JSON object
     })
     .then((res) => {
       if (res.status === 200) {
