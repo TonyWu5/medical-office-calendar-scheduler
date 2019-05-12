@@ -42,14 +42,14 @@ class AppointmentScheduler extends React.Component {
               value={this.state.patient}
               onChange={(event)=> this.handleChange(event)} />
             <br/>
-            Date (yyyy-mm-dd):<br/>
-            <input required type="text"
+            Date:<br/>
+            <input required type="date"
               name="date"
               value={this.state.date}
               onChange={(event)=> this.handleChange(event)} />
             <br/>
-            Time (hh:mm:ss):<br/>
-            <input required type="text"
+            Time:<br/>
+            <input required type="time"
               name="time"
               value={this.state.time}
               onChange={(event)=> this.handleChange(event)} />
